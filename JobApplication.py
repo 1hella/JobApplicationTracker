@@ -16,23 +16,29 @@ class JobApplication:
         self.interview_1_date = interview_1_date
         self.interview_2_date = interview_2_date
         self.interview_3_date = interview_3_date
+        self.days_since_applying = ""
         self.days_since_interview_1 = ""
         self.days_since_interview_2 = ""
         self.days_since_interview_3 = ""
         try:
+            delta = datetime.now() - datetime.strptime(self.date_applied, '%Y-%m-%d')
+            self.days_since_applying = delta.days
+        except (TypeError, ValueError):
+            print("can't parse interview_1_date", self.interview_1_date)
+        try:
             delta = datetime.now() - datetime.strptime(self.interview_1_date, '%Y-%m-%d')
             self.days_since_interview_1 = delta.days
-        except ValueError:
+        except (TypeError, ValueError):
             print("can't parse interview_1_date", self.interview_1_date)
         try:
             delta = datetime.now() - datetime.strptime(self.interview_2_date, '%Y-%m-%d')
             self.days_since_interview_2 = delta.days
-        except ValueError:
+        except (TypeError, ValueError):
             print("Can't parse interview_2_date", self.interview_2_date)
         try:
             delta = datetime.now() - datetime.strptime(self.interview_3_date, '%Y-%m-%d')
             self.days_since_interview_3 = delta.days
-        except ValueError:
+        except (TypeError, ValueError):
             print("Can't parse interview_3_date", self.interview_3_date)
         self.notes = notes
 
@@ -48,6 +54,7 @@ class JobApplication:
                 self.interview_1_date,
                 self.interview_2_date,
                 self.interview_3_date,
+                self.days_since_applying,
                 self.days_since_interview_1,
                 self.days_since_interview_2,
                 self.days_since_interview_3,
